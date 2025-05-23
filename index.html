@@ -8,12 +8,12 @@
   @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
   body {
     margin: 0;
+    min-height: 100vh;
+    overflow-y: auto;
     background: #0d1f2f;
     color: #e6f7ff;
     font-family: 'Orbitron', monospace, Arial, sans-serif;
     display: flex;
-    height: 100vh;
-    overflow: hidden;
   }
   #sidebar {
     width: 220px;
@@ -22,6 +22,9 @@
     display: flex;
     flex-direction: column;
     padding: 1rem 0;
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
   }
   #logo {
     display: flex;
@@ -56,6 +59,7 @@
   }
   #main {
     flex-grow: 1;
+    margin-left: 220px; /* Para no quedar debajo del sidebar fijo */
     padding: 2rem;
     overflow-y: auto;
     display: flex;
@@ -217,44 +221,23 @@
     background-color: #4dc3ffbb;
     border-radius: 4px;
   }
+
+  /* Responsive */
   @media (max-width: 800px) {
     body {
       flex-direction: column;
       height: auto;
     }
     #sidebar {
+      position: relative;
       width: 100%;
-      flex-direction: row;
-      overflow-x: auto;
-      padding: 0.5rem 0;
-    }
-    #menu {
-      display: flex;
-      flex-direction: row;
-      flex-grow: 1;
-      gap: 0.5rem;
-      padding-left: 0;
-    }
-    .menu-item {
-      flex: none;
-      padding: 0.5rem 1rem;
-      border-left: none;
-      border-bottom: 3px solid transparent;
-    }
-    .menu-item.active {
-      border-left: none;
-      border-bottom: 3px solid #4dc3ff;
-      background: transparent;
-      color: #4dc3ff;
-      font-weight: 700;
+      height: auto;
+      overflow: visible;
+      box-shadow: none;
     }
     #main {
+      margin-left: 0;
       padding: 1rem;
-      height: auto;
-    }
-    #cart {
-      max-height: none;
-      margin-top: 1rem;
     }
   }
 </style>
@@ -287,14 +270,12 @@
 </div>
 
 <script>
-  // Variables globales
   const menuItems = document.querySelectorAll('.menu-item');
   const productsDiv = document.getElementById('products');
   const cartItemsDiv = document.getElementById('cart-items');
   const cartTotalDiv = document.getElementById('cart-total');
   const btnWhatsApp = document.getElementById('btn-whatsapp');
 
-  // Productos por categoría
   const productsData = {
     conjuntos: [
       { id: 101, name: "Conjuntos Mod Personalizados", price: 0, description: "Se crean a tu gusto. Contacta para más info.", image: "https://i.imgur.com/6PPQZt5.jpg" }
@@ -324,7 +305,6 @@
   let currentCategory = "conjuntos";
   let cart = [];
 
-  // Función para cargar productos de la categoría seleccionada
   function loadProducts(category) {
     productsDiv.innerHTML = "";
 
@@ -356,13 +336,11 @@
       `;
       productsDiv.appendChild(div);
 
-      // Añadir evento click al botón Agregar
       const btn = div.querySelector('button.add-btn');
       btn.addEventListener('click', () => addToCart(p.id));
     });
   }
 
-  // Función para añadir producto al carrito
   function addToCart(id) {
     let prod;
     for(let cat in productsData){
@@ -388,7 +366,6 @@
     updateCart();
   }
 
-  // Función para actualizar el carrito
   function updateCart() {
     if(cart.length === 0){
       cartItemsDiv.textContent = "Tu carrito está vacío.";
@@ -415,7 +392,6 @@
     cartTotalDiv.textContent = `Total: Q${total.toFixed(2)}`;
     btnWhatsApp.disabled = false;
 
-    // Cambiar cantidades
     document.querySelectorAll('#cart-items input[type=number]').forEach(input => {
       input.addEventListener('change', e => {
         const id = parseInt(e.target.getAttribute('data-id'));
@@ -431,7 +407,6 @@
       });
     });
 
-    // Botones eliminar producto
     document.querySelectorAll('#cart-items .remove-btn').forEach(btn => {
       btn.addEventListener('click', e => {
         const id = parseInt(e.target.getAttribute('data-id'));
@@ -441,7 +416,6 @@
     });
   }
 
-  // Botón WhatsApp para enviar pedido
   btnWhatsApp.addEventListener('click', () => {
     if(cart.length === 0) return;
 
@@ -458,7 +432,6 @@
     window.open(url, '_blank');
   });
 
-  // Cambiar categoría en menú
   menuItems.forEach(item => {
     item.addEventListener('click', () => {
       if(item.classList.contains('active')) return;
@@ -469,7 +442,6 @@
     });
   });
 
-  // Inicializar con categoría por defecto
   loadProducts(currentCategory);
 </script>
 
