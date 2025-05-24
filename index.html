@@ -10,15 +10,16 @@
     margin: 0;
     min-height: 100vh;
     overflow-y: auto;
-    background: #0d1f2f;
+    background: #0b2f1b;
     color: #e6f7ff;
     font-family: 'Orbitron', monospace, Arial, sans-serif;
     display: flex;
+    position: relative;
   }
   #sidebar {
     width: 220px;
-    background: #152c44;
-    box-shadow: 2px 0 15px #4dc3ffaa;
+    background: #1a4d2e;
+    box-shadow: 2px 0 15px #39b54aaa;
     display: flex;
     flex-direction: column;
     padding: 1rem 0;
@@ -42,24 +43,24 @@
   .menu-item {
     padding: 1rem 1.5rem;
     cursor: pointer;
-    color: #4dc3ff;
+    color: #7ee99e;
     font-weight: 700;
     border-left: 4px solid transparent;
     transition: background 0.3s ease, border-left-color 0.3s ease;
     user-select: none;
   }
   .menu-item:hover {
-    background: #4dc3ff22;
+    background: #7ee99e33;
   }
   .menu-item.active {
-    background: #4dc3ff33;
-    border-left-color: #4dc3ff;
-    color: #0d1f2f;
+    background: #7ee99e55;
+    border-left-color: #7ee99e;
+    color: #0b2f1b;
     font-weight: 800;
   }
   #main {
     flex-grow: 1;
-    margin-left: 220px; /* Para no quedar debajo del sidebar fijo */
+    margin-left: 220px;
     padding: 2rem;
     overflow-y: auto;
     display: flex;
@@ -69,8 +70,8 @@
     margin-top: 0;
     margin-bottom: 1.5rem;
     text-align: center;
-    color: #4dc3ff;
-    text-shadow: 0 0 8px #4dc3ff;
+    color: #7ee99e;
+    text-shadow: 0 0 8px #7ee99e;
   }
   #products {
     display: grid;
@@ -78,9 +79,9 @@
     gap: 1.5rem;
   }
   .product {
-    background: #1e3a5f;
+    background: #1a4d2e;
     border-radius: 12px;
-    box-shadow: 0 0 15px #4dc3ff55;
+    box-shadow: 0 0 15px #7ee99e55;
     padding: 1rem;
     display: flex;
     flex-direction: column;
@@ -89,7 +90,7 @@
   }
   .product:hover {
     transform: translateY(-8px);
-    box-shadow: 0 0 25px #4dc3ffcc;
+    box-shadow: 0 0 25px #7ee99ecc;
   }
   .product img {
     width: 100%;
@@ -97,23 +98,24 @@
     object-fit: cover;
     border-radius: 10px;
     margin-bottom: 1rem;
-    border: 2px solid #4dc3ff;
+    border: 2px solid #7ee99e;
   }
   .product strong {
     font-size: 1.2rem;
     margin-bottom: 0.3rem;
     text-align: center;
+    color: #e6f7ff;
   }
   .price {
     font-weight: 700;
     font-size: 1.2rem;
-    color: #4dc3ff;
+    color: #7ee99e;
     margin-bottom: 1rem;
   }
   button.add-btn {
-    background: #4dc3ff;
+    background: #7ee99e;
     border: none;
-    color: #0d1f2f;
+    color: #0b2f1b;
     font-weight: 700;
     padding: 0.7rem 1.5rem;
     border-radius: 10px;
@@ -123,12 +125,12 @@
     transition: background 0.3s ease;
   }
   button.add-btn:hover {
-    background: #3aa8ff;
+    background: #5fc27a;
   }
   #cart {
-    background: #1e3a5f;
+    background: #1a4d2e;
     border-radius: 12px;
-    box-shadow: 0 0 20px #4dc3ffbb;
+    box-shadow: 0 0 20px #7ee99ebb;
     padding: 1.5rem;
     margin-top: 2rem;
     max-height: 320px;
@@ -137,13 +139,13 @@
   #cart h2 {
     margin-top: 0;
     margin-bottom: 1rem;
-    border-bottom: 2px solid #4dc3ff;
+    border-bottom: 2px solid #7ee99e;
     padding-bottom: 0.5rem;
-    color: #4dc3ff;
+    color: #7ee99e;
     text-align: center;
   }
   #cart-items {
-    color: #d4eaff;
+    color: #d4f1db;
     font-family: monospace;
   }
   .cart-item {
@@ -152,7 +154,7 @@
     justify-content: space-between;
     margin-bottom: 0.6rem;
     padding-bottom: 0.4rem;
-    border-bottom: 1px solid #315c8a;
+    border-bottom: 1px solid #3a7a48;
     font-size: 1rem;
   }
   .cart-item:last-child {
@@ -160,15 +162,16 @@
   }
   .cart-item > .item-info {
     flex: 1;
+    color: #e6f7ff;
   }
   .cart-item input[type=number] {
     width: 60px;
     font-size: 1rem;
     margin: 0 0.5rem;
     border-radius: 6px;
-    border: 1px solid #4dc3ff;
-    background: #152c44;
-    color: #d4eaff;
+    border: 1px solid #7ee99e;
+    background: #0b2f1b;
+    color: #d4f1db;
     padding: 0.2rem 0.4rem;
     text-align: center;
   }
@@ -190,13 +193,13 @@
     font-weight: 700;
     font-size: 1.3rem;
     margin-top: 1rem;
-    color: #4dc3ff;
+    color: #7ee99e;
     text-align: center;
   }
   #btn-whatsapp {
-    background: #4dc3ff;
+    background: #7ee99e;
     border: none;
-    color: #0d1f2f;
+    color: #0b2f1b;
     font-weight: 700;
     font-size: 1.2rem;
     padding: 0.9rem;
@@ -207,37 +210,106 @@
     margin-top: 1rem;
   }
   #btn-whatsapp:disabled {
-    background: #1a3c5f;
+    background: #164723;
     cursor: not-allowed;
-    color: #678dbb;
+    color: #679c73;
   }
   #btn-whatsapp:hover:not(:disabled) {
-    background: #3aa8ff;
+    background: #5fc27a;
   }
-  #cart-items::-webkit-scrollbar {
-    width: 8px;
+
+  /* Pantalla completa confirmación */
+  #confirmOverlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    color: #7ee99e;
+    font-family: 'Orbitron', monospace, Arial, sans-serif;
   }
-  #cart-items::-webkit-scrollbar-thumb {
-    background-color: #4dc3ffbb;
-    border-radius: 4px;
+  #confirmOverlay.visible {
+    display: flex;
+  }
+  #confirmOverlay video {
+    width: 90vw;
+    max-width: 700px;
+    border-radius: 15px;
+    box-shadow: 0 0 40px #39b54a;
+  }
+  #confirmLogo {
+    margin: 20px 0 15px;
+  }
+  #confirmLogo img {
+    width: 200px;
+    user-select: none;
+  }
+  #confirmCart {
+    max-height: 200px;
+    overflow-y: auto;
+    width: 90vw;
+    max-width: 700px;
+    background: #1a4d2e;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 0 25px #39b54a;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+  }
+  #confirmCart .item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.4rem;
+    color: #d4f1db;
+  }
+  #confirmCart .item:last-child {
+    margin-bottom: 0;
+  }
+  #confirmButtons {
+    display: flex;
+    gap: 1rem;
+  }
+  #confirmButtons button {
+    background: #7ee99e;
+    border: none;
+    color: #0b2f1b;
+    font-weight: 700;
+    font-size: 1.2rem;
+    padding: 0.8rem 2rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  #confirmButtons button:hover {
+    background: #5fc27a;
+  }
+  #confirmButtons button.cancel {
+    background: #ff6b6b;
+    color: #fff;
+  }
+  #confirmButtons button.cancel:hover {
+    background: #e14040;
   }
 
   /* Responsive */
   @media (max-width: 800px) {
-    body {
+    #confirmOverlay video {
+      width: 95vw;
+    }
+    #confirmCart {
+      max-height: 150px;
+    }
+    #confirmButtons {
       flex-direction: column;
-      height: auto;
+      width: 90vw;
+      max-width: 700px;
     }
-    #sidebar {
-      position: relative;
+    #confirmButtons button {
       width: 100%;
-      height: auto;
-      overflow: visible;
-      box-shadow: none;
-    }
-    #main {
-      margin-left: 0;
-      padding: 1rem;
     }
   }
 </style>
@@ -246,7 +318,7 @@
 
 <div id="sidebar">
   <div id="logo">
-    <img src="https://i.imgur.com/tgMiizt.png" alt="Danny Store Logo" />
+    <img src="https://i.imgur.com/7AHG4WN.png" alt="Danny Store Logo" />
   </div>
   <nav id="menu">
     <div class="menu-item active" data-category="conjuntos">Conjuntos Mod</div>
@@ -269,12 +341,35 @@
   </section>
 </div>
 
+<!-- Pantalla confirmación -->
+<div id="confirmOverlay" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+  <video autoplay muted playsinline loop>
+    <source src="https://i.imgur.com/n0K53pU.mp4" type="video/mp4" />
+    Tu navegador no soporta video.
+  </video>
+  <div id="confirmLogo">
+    <img src="https://i.imgur.com/7AHG4WN.png" alt="Danny Store Logo" />
+  </div>
+  <div id="confirmCart" aria-live="polite" aria-atomic="true">
+    <!-- Aquí se agregan los productos -->
+  </div>
+  <div id="confirmButtons">
+    <button id="confirmBtn">Confirmar Pedido</button>
+    <button class="cancel" id="cancelBtn">Cancelar</button>
+  </div>
+</div>
+
 <script>
   const menuItems = document.querySelectorAll('.menu-item');
   const productsDiv = document.getElementById('products');
   const cartItemsDiv = document.getElementById('cart-items');
   const cartTotalDiv = document.getElementById('cart-total');
   const btnWhatsApp = document.getElementById('btn-whatsapp');
+
+  const confirmOverlay = document.getElementById('confirmOverlay');
+  const confirmCart = document.getElementById('confirmCart');
+  const confirmBtn = document.getElementById('confirmBtn');
+  const cancelBtn = document.getElementById('cancelBtn');
 
   const productsData = {
     conjuntos: [
@@ -316,9 +411,9 @@
       div.style.textAlign = "center";
       div.innerHTML = `
         <img src="${conjunto.image}" alt="${conjunto.name}" style="max-width:300px; margin-bottom:1rem; border:none;" />
-        <strong style="color:#4dc3ff; font-size:1.4rem;">${conjunto.name}</strong>
-        <p style="color:#d4eaff; margin-top:0.5rem; font-size:1.1rem;">${conjunto.description}</p>
-        <p style="font-style:italic; color:#4dc3ff;">Se hacen personalizados a tu gusto. Contacta para más información.</p>
+        <strong style="color:#7ee99e; font-size:1.4rem;">${conjunto.name}</strong>
+        <p style="color:#d4f1db; margin-top:0.5rem; font-size:1.1rem;">${conjunto.description}</p>
+        <p style="font-style:italic; color:#7ee99e;">Se hacen personalizados a tu gusto. Contacta para más información.</p>
       `;
       productsDiv.appendChild(div);
       return;
@@ -416,9 +511,27 @@
     });
   }
 
+  // Mostrar confirmación antes de enviar pedido
   btnWhatsApp.addEventListener('click', () => {
     if(cart.length === 0) return;
 
+    // Construir resumen carrito
+    confirmCart.innerHTML = '';
+    cart.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'item';
+      div.textContent = `${item.name} x${item.quantity} = Q${(item.price * item.quantity).toFixed(2)}`;
+      confirmCart.appendChild(div);
+    });
+
+    // Mostrar overlay
+    confirmOverlay.classList.add('visible');
+    // Scroll top por si acaso
+    confirmOverlay.scrollTop = 0;
+  });
+
+  // Confirmar pedido y abrir WhatsApp
+  confirmBtn.addEventListener('click', () => {
     const phoneNumber = "50232705367";
 
     let message = "Hola, quiero hacer el siguiente pedido:\n";
@@ -429,7 +542,17 @@
     message += `Total: Q${total.toFixed(2)}\nGracias.`;
 
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+    // Abrir WhatsApp
     window.open(url, '_blank');
+
+    // Ocultar confirmación
+    confirmOverlay.classList.remove('visible');
+  });
+
+  // Cancelar y regresar a tienda
+  cancelBtn.addEventListener('click', () => {
+    confirmOverlay.classList.remove('visible');
   });
 
   menuItems.forEach(item => {
