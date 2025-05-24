@@ -26,6 +26,10 @@
     position: fixed;
     height: 100vh;
     overflow-y: auto;
+    transition: left 0.3s ease;
+    left: 0;
+    top: 0;
+    z-index: 10500;
   }
   #logo {
     display: flex;
@@ -65,6 +69,7 @@
     overflow-y: auto;
     display: flex;
     flex-direction: column;
+    transition: margin-left 0.3s ease;
   }
   h1 {
     margin-top: 0;
@@ -218,6 +223,22 @@
     background: #5fc27a;
   }
 
+  /* Botón hamburguesa */
+  #menuToggle {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 11000;
+    background: #7ee99e;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 12px;
+    cursor: pointer;
+    display: none;
+    font-size: 1.2rem;
+    color: #0b2f1b;
+  }
+
   /* Pantalla completa confirmación */
   #confirmOverlay {
     position: fixed;
@@ -231,6 +252,8 @@
     z-index: 10000;
     color: #7ee99e;
     font-family: 'Orbitron', monospace, Arial, sans-serif;
+    padding: 10px;
+    box-sizing: border-box;
   }
   #confirmOverlay.visible {
     display: flex;
@@ -272,6 +295,8 @@
   #confirmButtons {
     display: flex;
     gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
   }
   #confirmButtons button {
     background: #7ee99e;
@@ -283,6 +308,7 @@
     border-radius: 12px;
     cursor: pointer;
     transition: background 0.3s ease;
+    min-width: 140px;
   }
   #confirmButtons button:hover {
     background: #5fc27a;
@@ -297,24 +323,35 @@
 
   /* Responsive */
   @media (max-width: 800px) {
+    /* Sidebar deslizable */
+    #sidebar {
+      left: -250px;
+    }
+    #sidebar.open {
+      left: 0;
+    }
+    #menuToggle {
+      display: block;
+    }
+    #main {
+      margin-left: 0 !important;
+      padding: 1rem;
+    }
+
+    /* Confirmación */
     #confirmOverlay video {
       width: 95vw;
     }
     #confirmCart {
       max-height: 150px;
     }
-    #confirmButtons {
-      flex-direction: column;
-      width: 90vw;
-      max-width: 700px;
-    }
-    #confirmButtons button {
-      width: 100%;
-    }
   }
 </style>
 </head>
 <body>
+
+<!-- Botón hamburguesa -->
+<button id="menuToggle" aria-label="Abrir menú">☰</button>
 
 <div id="sidebar">
   <div id="logo">
@@ -360,6 +397,8 @@
 </div>
 
 <script>
+  const menuToggle = document.getElementById('menuToggle');
+  const sidebar = document.getElementById('sidebar');
   const menuItems = document.querySelectorAll('.menu-item');
   const productsDiv = document.getElementById('products');
   const cartItemsDiv = document.getElementById('cart-items');
@@ -511,6 +550,11 @@
     });
   }
 
+  // Toggle menú lateral en móvil
+  menuToggle.addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+  });
+
   // Mostrar confirmación antes de enviar pedido
   btnWhatsApp.addEventListener('click', () => {
     if(cart.length === 0) return;
@@ -524,8 +568,10 @@
       confirmCart.appendChild(div);
     });
 
-    // Mostrar overlay
+    // Mostrar overlay confirmación y cerrar menú móvil si está abierto
     confirmOverlay.classList.add('visible');
+    sidebar.classList.remove('open');
+
     // Scroll top por si acaso
     confirmOverlay.scrollTop = 0;
   });
