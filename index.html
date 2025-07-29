@@ -1,618 +1,174 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Danny Store - GTA V Online</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
-  body {
-    margin: 0;
-    min-height: 100vh;
-    overflow-y: auto;
-    background: #0b2f1b;
-    color: #e6f7ff;
-    font-family: 'Orbitron', monospace, Arial, sans-serif;
-    display: flex;
-    position: relative;
-  }
-  #sidebar {
-    width: 220px;
-    background: #1a4d2e;
-    box-shadow: 2px 0 15px #39b54aaa;
-    display: flex;
-    flex-direction: column;
-    padding: 1rem 0;
-    position: fixed;
-    height: 100vh;
-    overflow-y: auto;
-    transition: left 0.3s ease;
-    left: 0;
-    top: 0;
-    z-index: 10500;
-  }
-  #logo {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1rem;
-  }
-  #logo img {
-    width: 160px;
-    height: auto;
-    user-select: none;
-  }
-  #menu {
-    flex-grow: 1;
-  }
-  .menu-item {
-    padding: 1rem 1.5rem;
-    cursor: pointer;
-    color: #7ee99e;
-    font-weight: 700;
-    border-left: 4px solid transparent;
-    transition: background 0.3s ease, border-left-color 0.3s ease;
-    user-select: none;
-  }
-  .menu-item:hover {
-    background: #7ee99e33;
-  }
-  .menu-item.active {
-    background: #7ee99e55;
-    border-left-color: #7ee99e;
-    color: #0b2f1b;
-    font-weight: 800;
-  }
-  #main {
-    flex-grow: 1;
-    margin-left: 220px;
-    padding: 2rem;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    transition: margin-left 0.3s ease;
-  }
-  h1 {
-    margin-top: 0;
-    margin-bottom: 1.5rem;
-    text-align: center;
-    color: #7ee99e;
-    text-shadow: 0 0 8px #7ee99e;
-  }
-  #products {
-    display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(280px,1fr));
-    gap: 1.5rem;
-  }
-  .product {
-    background: #1a4d2e;
-    border-radius: 12px;
-    box-shadow: 0 0 15px #7ee99e55;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: transform 0.2s ease, box-shadow 0.3s ease;
-  }
-  .product:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 0 25px #7ee99ecc;
-  }
-  .product img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 1rem;
-    border: 2px solid #7ee99e;
-  }
-  .product strong {
-    font-size: 1.2rem;
-    margin-bottom: 0.3rem;
-    text-align: center;
-    color: #e6f7ff;
-  }
-  .price {
-    font-weight: 700;
-    font-size: 1.2rem;
-    color: #7ee99e;
-    margin-bottom: 1rem;
-  }
-  button.add-btn {
-    background: #7ee99e;
-    border: none;
-    color: #0b2f1b;
-    font-weight: 700;
-    padding: 0.7rem 1.5rem;
-    border-radius: 10px;
-    cursor: pointer;
-    width: 100%;
-    font-size: 1rem;
-    transition: background 0.3s ease;
-  }
-  button.add-btn:hover {
-    background: #5fc27a;
-  }
-  #cart {
-    background: #1a4d2e;
-    border-radius: 12px;
-    box-shadow: 0 0 20px #7ee99ebb;
-    padding: 1.5rem;
-    margin-top: 2rem;
-    max-height: 320px;
-    overflow-y: auto;
-  }
-  #cart h2 {
-    margin-top: 0;
-    margin-bottom: 1rem;
-    border-bottom: 2px solid #7ee99e;
-    padding-bottom: 0.5rem;
-    color: #7ee99e;
-    text-align: center;
-  }
-  #cart-items {
-    color: #d4f1db;
-    font-family: monospace;
-  }
-  .cart-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 0.6rem;
-    padding-bottom: 0.4rem;
-    border-bottom: 1px solid #3a7a48;
-    font-size: 1rem;
-  }
-  .cart-item:last-child {
-    border-bottom: none;
-  }
-  .cart-item > .item-info {
-    flex: 1;
-    color: #e6f7ff;
-  }
-  .cart-item input[type=number] {
-    width: 60px;
-    font-size: 1rem;
-    margin: 0 0.5rem;
-    border-radius: 6px;
-    border: 1px solid #7ee99e;
-    background: #0b2f1b;
-    color: #d4f1db;
-    padding: 0.2rem 0.4rem;
-    text-align: center;
-  }
-  .cart-item button.remove-btn {
-    background: transparent;
-    border: none;
-    color: #ff6b6b;
-    font-weight: 900;
-    font-size: 1.5rem;
-    cursor: pointer;
-    padding: 0 0.3rem;
-    line-height: 1;
-    transition: color 0.3s ease;
-  }
-  .cart-item button.remove-btn:hover {
-    color: #ff3b3b;
-  }
-  #cart-total {
-    font-weight: 700;
-    font-size: 1.3rem;
-    margin-top: 1rem;
-    color: #7ee99e;
-    text-align: center;
-  }
-  #btn-whatsapp {
-    background: #7ee99e;
-    border: none;
-    color: #0b2f1b;
-    font-weight: 700;
-    font-size: 1.2rem;
-    padding: 0.9rem;
-    width: 100%;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    margin-top: 1rem;
-  }
-  #btn-whatsapp:disabled {
-    background: #164723;
-    cursor: not-allowed;
-    color: #679c73;
-  }
-  #btn-whatsapp:hover:not(:disabled) {
-    background: #5fc27a;
-  }
-
-  /* Botón hamburguesa */
-  #menuToggle {
-    position: fixed;
-    top: 15px;
-    left: 15px;
-    z-index: 11000;
-    background: #7ee99e;
-    border: none;
-    border-radius: 6px;
-    padding: 8px 12px;
-    cursor: pointer;
-    display: none;
-    font-size: 1.2rem;
-    color: #0b2f1b;
-  }
-
-  /* Pantalla completa confirmación */
-  #confirmOverlay {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    background: rgba(0, 0, 0, 0.85);
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 10000;
-    color: #7ee99e;
-    font-family: 'Orbitron', monospace, Arial, sans-serif;
-    padding: 10px;
-    box-sizing: border-box;
-  }
-  #confirmOverlay.visible {
-    display: flex;
-  }
-  #confirmOverlay video {
-    width: 90vw;
-    max-width: 700px;
-    border-radius: 15px;
-    box-shadow: 0 0 40px #39b54a;
-  }
-  #confirmLogo {
-    margin: 20px 0 15px;
-  }
-  #confirmLogo img {
-    width: 200px;
-    user-select: none;
-  }
-  #confirmCart {
-    max-height: 200px;
-    overflow-y: auto;
-    width: 90vw;
-    max-width: 700px;
-    background: #1a4d2e;
-    border-radius: 12px;
-    padding: 1rem;
-    box-shadow: 0 0 25px #39b54a;
-    font-size: 1.1rem;
-    margin-bottom: 20px;
-  }
-  #confirmCart .item {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.4rem;
-    color: #d4f1db;
-  }
-  #confirmCart .item:last-child {
-    margin-bottom: 0;
-  }
-  #confirmButtons {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  #confirmButtons button {
-    background: #7ee99e;
-    border: none;
-    color: #0b2f1b;
-    font-weight: 700;
-    font-size: 1.2rem;
-    padding: 0.8rem 2rem;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    min-width: 140px;
-  }
-  #confirmButtons button:hover {
-    background: #5fc27a;
-  }
-  #confirmButtons button.cancel {
-    background: #ff6b6b;
-    color: #fff;
-  }
-  #confirmButtons button.cancel:hover {
-    background: #e14040;
-  }
-
-  /* Responsive */
-  @media (max-width: 800px) {
-    /* Sidebar deslizable */
-    #sidebar {
-      left: -250px;
-    }
-    #sidebar.open {
-      left: 0;
-    }
-    #menuToggle {
-      display: block;
-    }
-    #main {
-      margin-left: 0 !important;
-      padding: 1rem;
-    }
-
-    /* Confirmación */
-    #confirmOverlay video {
-      width: 95vw;
-    }
-    #confirmCart {
-      max-height: 150px;
-    }
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Momento Floral - Floristería</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        header {
+            background-color: #f2d1f0;
+            padding: 20px;
+            text-align: center;
+            color: #8a3d88;
+        }
+        header img {
+            max-width: 150px;
+        }
+        header h1 {
+            font-size: 2em;
+        }
+        .hero {
+            background-image: url('https://imgur.com/wsphjQ5.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+        }
+        .hero h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .cta-btn {
+            background-color: #8a3d88;
+            color: white;
+            padding: 15px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+        }
+        .catalog {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
+        .catalog-item {
+            margin: 10px;
+            width: 200px;
+            text-align: center;
+            background-color: white;
+            padding: 15px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        .catalog-item img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .catalog-item p {
+            font-size: 1.2em;
+            margin-top: 10px;
+            color: #8a3d88;
+        }
+        .contact-section {
+            background-color: #f2d1f0;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .contact-section h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #8a3d88;
+        }
+        .whatsapp-btn {
+            background-color: #25D366;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+        }
+        footer {
+            background-color: #8a3d88;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <img src="https://imgur.com/FhqF3r8.png" alt="Logo Momento Floral">
+        <h1>Momento Floral</h1>
+        <p>Haz de cada ocasión un momento inolvidable con nuestros hermosos ramos de flores.</p>
+    </header>
 
-<!-- Botón hamburguesa -->
-<button id="menuToggle" aria-label="Abrir menú">☰</button>
+    <section class="hero">
+        <h2>Flores para cualquier ocasión</h2>
+        <p>Ramos frescos, arreglos personalizados, y más. ¡Dile "te quiero" con flores!</p>
+        <a href="#catalog" class="cta-btn">Explora Nuestros Ramos</a>
+    </section>
 
-<div id="sidebar">
-  <div id="logo">
-    <img src="https://i.imgur.com/7AHG4WN.png" alt="Danny Store Logo" />
-  </div>
-  <nav id="menu">
-    <div class="menu-item active" data-category="conjuntos">Conjuntos Mod</div>
-    <div class="menu-item" data-category="cheteos">Cheteos</div>
-    <div class="menu-item" data-category="cuentas">Cuentas</div>
-    <div class="menu-item" data-category="autos">Autos Full Mod</div>
-    <div class="menu-item" data-category="millones">Millones GTA V</div>
-  </nav>
-</div>
+    <section class="catalog" id="catalog">
+        <div class="catalog-item">
+            <img src="https://imgur.com/Ucmv5sB.jpg" alt="Ramo de flores 1">
+            <p>Un ramo lleno de elegancia para tus momentos más especiales, perfecto para regalar o decorar.</p>
+        </div>
+        <div class="catalog-item">
+            <img src="https://imgur.com/ZMgLFLw.jpg" alt="Ramo de flores 2">
+            <p>Vibrante y lleno de vida, este ramo es el detalle perfecto para alegrar el día de alguien especial.</p>
+        </div>
+        <div class="catalog-item">
+            <img src="https://imgur.com/dmOsuhB.jpg" alt="Ramo de flores 3">
+            <p>Un ramo clásico y elegante que nunca pasa de moda, ideal para expresar tus sentimientos.</p>
+        </div>
+        <div class="catalog-item">
+            <img src="https://imgur.com/GptRigZ.jpg" alt="Ramo de flores 4">
+            <p>Una mezcla perfecta de colores y texturas que hará brillar cualquier espacio.</p>
+        </div>
+        <div class="catalog-item">
+            <img src="https://imgur.com/3sGFpEg.jpg" alt="Ramo de flores 5">
+            <p>Con un toque campestre y natural, este ramo será el detalle perfecto para cualquier ocasión.</p>
+        </div>
+        <div class="catalog-item">
+            <img src="https://imgur.com/gMxw7z1.jpg" alt="Ramo de flores 6">
+            <p>Un ramo romántico y delicado que hará que tu ser querido se sienta especial en su gran día.</p>
+        </div>
+        <div class="catalog-item">
+            <img src="https://imgur.com/Fw6gFzE.jpg" alt="Ramo de flores 7">
+            <p>Elegancia y sencillez se combinan en este ramo de tulipanes, ideal para momentos delicados.</p>
+        </div>
+        <div class="catalog-item">
+            <img src="https://imgur.com/iyHr8oD.jpg" alt="Ramo de flores 8">
+            <p>Una explosión de colores que llenará de alegría a cualquiera que lo reciba.</p>
+        </div>
+        <div class="catalog-item">
+            <img src="https://imgur.com/lB5fXls.jpg" alt="Ramo de flores 9">
+            <p>Orquídeas, símbolo de sofisticación y belleza, perfectas para una ocasión especial.</p>
+        </div>
+        <div class="catalog-item">
+            <img src="https://imgur.com/Jv4BDpw.jpg" alt="Ramo de flores 10">
+            <p>Un ramo fragante y elegante de lirios, ideal para expresar tus sentimientos de forma única.</p>
+        </div>
+        <div class="catalog-item">
+            <img src="https://imgur.com/5lHi9Q6.jpg" alt="Ramo de flores 11">
+            <p>Flores frescas y fragantes para regalar un toque especial a tu hogar o un ser querido.</p>
+        </div>
+        <div class="catalog-item">
+            <img src="https://imgur.com/6Lsi3q1.jpg" alt="Ramo de flores 12">
+            <p>Un ramo campestre que te conecta con la naturaleza, perfecto para cualquier tipo de evento.</p>
+        </div>
+    </section>
 
-<div id="main">
-  <h1>Danny Store - GTA V Online</h1>
-  <div id="products"></div>
+    <section class="contact-section">
+        <h2>¡Contáctanos y haz tu pedido ahora!</h2>
+        <p>Estamos listos para hacer realidad tu ramo perfecto. Ya sea para un cumpleaños, boda, o simplemente para decir "te quiero", tenemos lo que necesitas.</p>
+        <a href="https://wa.me/50230404940" class="whatsapp-btn">Contáctanos por WhatsApp</a>
+    </section>
 
-  <section id="cart">
-    <h2>Tu carrito</h2>
-    <div id="cart-items">Tu carrito está vacío.</div>
-    <div id="cart-total">Total: Q0.00</div>
-    <button id="btn-whatsapp" disabled>Enviar pedido por WhatsApp</button>
-  </section>
-</div>
-
-<!-- Pantalla confirmación -->
-<div id="confirmOverlay" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
-  <video autoplay muted playsinline loop>
-    <source src="https://i.imgur.com/n0K53pU.mp4" type="video/mp4" />
-    Tu navegador no soporta video.
-  </video>
-  <div id="confirmLogo">
-    <img src="https://i.imgur.com/7AHG4WN.png" alt="Danny Store Logo" />
-  </div>
-  <div id="confirmCart" aria-live="polite" aria-atomic="true">
-    <!-- Aquí se agregan los productos -->
-  </div>
-  <div id="confirmButtons">
-    <button id="confirmBtn">Confirmar Pedido</button>
-    <button class="cancel" id="cancelBtn">Cancelar</button>
-  </div>
-</div>
-
-<script>
-  const menuToggle = document.getElementById('menuToggle');
-  const sidebar = document.getElementById('sidebar');
-  const menuItems = document.querySelectorAll('.menu-item');
-  const productsDiv = document.getElementById('products');
-  const cartItemsDiv = document.getElementById('cart-items');
-  const cartTotalDiv = document.getElementById('cart-total');
-  const btnWhatsApp = document.getElementById('btn-whatsapp');
-
-  const confirmOverlay = document.getElementById('confirmOverlay');
-  const confirmCart = document.getElementById('confirmCart');
-  const confirmBtn = document.getElementById('confirmBtn');
-  const cancelBtn = document.getElementById('cancelBtn');
-
-  const productsData = {
-    conjuntos: [
-      { id: 101, name: "Conjuntos Mod Personalizados", price: 0, description: "Se crean a tu gusto. Contacta para más info.", image: "https://i.imgur.com/6PPQZt5.jpg" }
-    ],
-    cheteos: [
-      { id: 1, name: "Cheat Básico", price: 100, image: "https://i.imgur.com/9kxDz4B.jpg" },
-      { id: 2, name: "Cheat Avanzado", price: 180, image: "https://i.imgur.com/7WVmZxK.jpg" },
-      { id: 3, name: "Cheat Premium", price: 300, image: "https://i.imgur.com/tZ3Fz6Z.jpg" }
-    ],
-    cuentas: [
-      { id: 4, name: "Cuenta Nivel 50", price: 250, image: "https://i.imgur.com/5ECyCEe.jpg" },
-      { id: 5, name: "Cuenta Nivel 100", price: 450, image: "https://i.imgur.com/kLMEGYT.jpg" },
-      { id: 6, name: "Cuenta Premium Full Mods", price: 600, image: "https://i.imgur.com/mq8o41A.jpg" }
-    ],
-    autos: [
-      { id: 7, name: "Auto Full Mod #1", price: 200, image: "https://i.imgur.com/E3bNdlY.jpg" },
-      { id: 8, name: "Auto Full Mod #2", price: 350, image: "https://i.imgur.com/QrXD8vq.jpg" },
-      { id: 9, name: "Auto Full Mod #3", price: 400, image: "https://i.imgur.com/ZZFGjK9.jpg" }
-    ],
-    millones: [
-      { id: 10, name: "Millones GTA V - Paquete 1", price: 120, image: "https://i.imgur.com/GEeT3vD.jpg" },
-      { id: 11, name: "Millones GTA V - Paquete 2", price: 250, image: "https://i.imgur.com/Txz6q7a.jpg" },
-      { id: 12, name: "Millones GTA V - Paquete 3", price: 400, image: "https://i.imgur.com/8q0AmXQ.jpg" }
-    ]
-  };
-
-  let currentCategory = "conjuntos";
-  let cart = [];
-
-  function loadProducts(category) {
-    productsDiv.innerHTML = "";
-
-    if(category === "conjuntos"){
-      const conjunto = productsData.conjuntos[0];
-      const div = document.createElement('div');
-      div.className = "product";
-      div.style.justifyContent = "center";
-      div.style.textAlign = "center";
-      div.innerHTML = `
-        <img src="${conjunto.image}" alt="${conjunto.name}" style="max-width:300px; margin-bottom:1rem; border:none;" />
-        <strong style="color:#7ee99e; font-size:1.4rem;">${conjunto.name}</strong>
-        <p style="color:#d4f1db; margin-top:0.5rem; font-size:1.1rem;">${conjunto.description}</p>
-        <p style="font-style:italic; color:#7ee99e;">Se hacen personalizados a tu gusto. Contacta para más información.</p>
-      `;
-      productsDiv.appendChild(div);
-      return;
-    }
-
-    const items = productsData[category] || [];
-    items.forEach(p => {
-      const div = document.createElement('div');
-      div.className = 'product';
-      div.innerHTML = `
-        <img src="${p.image}" alt="${p.name}" />
-        <strong>${p.name}</strong>
-        <div class="price">Q${p.price.toFixed(2)}</div>
-        <button class="add-btn">Agregar</button>
-      `;
-      productsDiv.appendChild(div);
-
-      const btn = div.querySelector('button.add-btn');
-      btn.addEventListener('click', () => addToCart(p.id));
-    });
-  }
-
-  function addToCart(id) {
-    let prod;
-    for(let cat in productsData){
-      const p = productsData[cat].find(item => item.id === id);
-      if(p){
-        prod = p;
-        break;
-      }
-    }
-    if(!prod) return;
-
-    if(prod.price === 0) {
-      alert("Este producto es personalizado, por favor contacta para más información.");
-      return;
-    }
-
-    const item = cart.find(i => i.id === id);
-    if(item){
-      item.quantity++;
-    } else {
-      cart.push({...prod, quantity:1});
-    }
-    updateCart();
-  }
-
-  function updateCart() {
-    if(cart.length === 0){
-      cartItemsDiv.textContent = "Tu carrito está vacío.";
-      cartTotalDiv.textContent = "Total: Q0.00";
-      btnWhatsApp.disabled = true;
-      return;
-    }
-    cartItemsDiv.innerHTML = "";
-    let total = 0;
-    cart.forEach(item => {
-      total += item.price * item.quantity;
-      const div = document.createElement('div');
-      div.className = 'cart-item';
-
-      div.innerHTML = `
-        <div class="item-info">${item.name}</div>
-        <input type="number" min="1" value="${item.quantity}" data-id="${item.id}" />
-        <div>Q${(item.price * item.quantity).toFixed(2)}</div>
-        <button class="remove-btn" data-id="${item.id}" title="Quitar">&times;</button>
-      `;
-
-      cartItemsDiv.appendChild(div);
-    });
-    cartTotalDiv.textContent = `Total: Q${total.toFixed(2)}`;
-    btnWhatsApp.disabled = false;
-
-    document.querySelectorAll('#cart-items input[type=number]').forEach(input => {
-      input.addEventListener('change', e => {
-        const id = parseInt(e.target.getAttribute('data-id'));
-        let val = parseInt(e.target.value);
-        if(isNaN(val) || val < 1) val = 1;
-        e.target.value = val;
-
-        const item = cart.find(i => i.id === id);
-        if(item){
-          item.quantity = val;
-          updateCart();
-        }
-      });
-    });
-
-    document.querySelectorAll('#cart-items .remove-btn').forEach(btn => {
-      btn.addEventListener('click', e => {
-        const id = parseInt(e.target.getAttribute('data-id'));
-        cart = cart.filter(i => i.id !== id);
-        updateCart();
-      });
-    });
-  }
-
-  // Toggle menú lateral en móvil
-  menuToggle.addEventListener('click', () => {
-    sidebar.classList.toggle('open');
-  });
-
-  // Mostrar confirmación antes de enviar pedido
-  btnWhatsApp.addEventListener('click', () => {
-    if(cart.length === 0) return;
-
-    // Construir resumen carrito
-    confirmCart.innerHTML = '';
-    cart.forEach(item => {
-      const div = document.createElement('div');
-      div.className = 'item';
-      div.textContent = `${item.name} x${item.quantity} = Q${(item.price * item.quantity).toFixed(2)}`;
-      confirmCart.appendChild(div);
-    });
-
-    // Mostrar overlay confirmación y cerrar menú móvil si está abierto
-    confirmOverlay.classList.add('visible');
-    sidebar.classList.remove('open');
-
-    // Scroll top por si acaso
-    confirmOverlay.scrollTop = 0;
-  });
-
-  // Confirmar pedido y abrir WhatsApp
-  confirmBtn.addEventListener('click', () => {
-    const phoneNumber = "50232705367";
-
-    let message = "Hola, quiero hacer el siguiente pedido:\n";
-    cart.forEach(item => {
-      message += `- ${item.name} x${item.quantity} = Q${(item.price * item.quantity).toFixed(2)}\n`;
-    });
-    const total = cart.reduce((acc, i) => acc + i.price * i.quantity, 0);
-    message += `Total: Q${total.toFixed(2)}\nGracias.`;
-
-    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-
-    // Abrir WhatsApp
-    window.open(url, '_blank');
-
-    // Ocultar confirmación
-    confirmOverlay.classList.remove('visible');
-  });
-
-  // Cancelar y regresar a tienda
-  cancelBtn.addEventListener('click', () => {
-    confirmOverlay.classList.remove('visible');
-  });
-
-  menuItems.forEach(item => {
-    item.addEventListener('click', () => {
-      if(item.classList.contains('active')) return;
-      menuItems.forEach(i => i.classList.remove('active'));
-      item.classList.add('active');
-      currentCategory = item.getAttribute('data-category');
-      loadProducts(currentCategory);
-    });
-  });
-
-  loadProducts(currentCategory);
-</script>
-
+    <footer>
+        <p>Síguenos en nuestras redes sociales para ver más flores hermosas y ofertas especiales.</p>
+        <p><a href="https://www.instagram.com/momento.floral_gt/" target="_blank" style="color:white;">Instagram de Momento Floral</a></p>
+        <p>&copy; 2025 Momento Floral. Todos los derechos reservados.</p>
+    </footer>
 </body>
 </html>
