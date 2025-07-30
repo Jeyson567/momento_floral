@@ -6,11 +6,70 @@
     <title>Momento Floral - Floristería</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f5f5f5;
             color: #333;
+        }
+        /* Animaciones */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s forwards;
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.8);
+            animation: scaleIn 0.8s forwards;
+        }
+        @keyframes scaleIn {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        .btn-anim {
+            animation: pulseBtn 1.2s infinite alternate;
+        }
+        @keyframes pulseBtn {
+            from {
+                box-shadow: 0 2px 8px rgba(138,61,136,0.20);
+            }
+            to {
+                box-shadow: 0 0 24px 8px #f2d1f0;
+            }
+        }
+        nav {
+            background: #8a3d88;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 0;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            margin: 0;
+            padding: 0;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: color 0.2s;
+        }
+        nav a:hover {
+            color: #f2d1f0;
         }
         header {
             background-color: #f2d1f0;
@@ -31,10 +90,13 @@
             color: white;
             padding: 100px 20px;
             text-align: center;
+            border-radius: 0 0 30px 30px;
+            box-shadow: 0 8px 24px rgba(138,61,136,0.15);
         }
         .hero h2 {
             font-size: 2.5em;
             margin-bottom: 20px;
+            text-shadow: 2px 2px 8px #8a3d88;
         }
         .cta-btn {
             background-color: #8a3d88;
@@ -43,28 +105,36 @@
             text-decoration: none;
             border-radius: 5px;
             font-size: 1.2em;
+            box-shadow: 0 2px 8px rgba(138,61,136,0.2);
         }
         .catalog {
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-around;
-            padding: 20px;
+            justify-content: center;
+            gap: 20px;
+            padding: 40px 10px;
         }
         .catalog-item {
             margin: 10px;
-            width: 200px;
+            width: 220px;
             text-align: center;
             background-color: white;
-            padding: 15px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
+            padding: 18px;
+            box-shadow: 0px 4px 16px rgba(138,61,136,0.08);
+            border-radius: 16px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .catalog-item:hover {
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0px 8px 24px rgba(138,61,136,0.18);
         }
         .catalog-item img {
             width: 100%;
-            border-radius: 10px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(138,61,136,0.10);
         }
         .catalog-item p {
-            font-size: 1.2em;
+            font-size: 1.1em;
             margin-top: 10px;
             color: #8a3d88;
         }
@@ -72,6 +142,9 @@
             background-color: #f2d1f0;
             padding: 40px 20px;
             text-align: center;
+            border-radius: 30px;
+            margin: 40px 10px 0 10px;
+            box-shadow: 0 4px 16px rgba(138,61,136,0.10);
         }
         .contact-section h2 {
             font-size: 2em;
@@ -85,6 +158,42 @@
             text-decoration: none;
             border-radius: 5px;
             font-size: 1.2em;
+            box-shadow: 0 2px 8px rgba(37,211,102,0.15);
+        }
+        .contact-form {
+            margin: 30px auto 0 auto;
+            max-width: 400px;
+            background: #fff;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(138,61,136,0.10);
+        }
+        .contact-form label {
+            display: block;
+            margin-bottom: 8px;
+            color: #8a3d88;
+            font-weight: bold;
+        }
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1em;
+        }
+        .contact-form button {
+            background-color: #8a3d88;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        .contact-form button:hover {
+            background-color: #a85ca8;
         }
         footer {
             background-color: #8a3d88;
@@ -92,64 +201,91 @@
             text-align: center;
             padding: 20px;
             position: relative;
+            border-radius: 30px 30px 0 0;
+            margin-top: 40px;
+        }
+        .redes {
+            margin-top: 10px;
+        }
+        .redes a {
+            color: #fff;
+            margin: 0 8px;
+            text-decoration: underline;
+        }
+        @media (max-width: 700px) {
+            .catalog {
+                flex-direction: column;
+                align-items: center;
+            }
+            nav ul {
+                gap: 12px;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <img src="https://imgur.com/FhqF3r8.png" alt="Logo Momento Floral">
+    <nav>
+        <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#catalog">Catálogo</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+            <li><a href="https://www.instagram.com/momento.floral_gt/" target="_blank">Instagram</a></li>
+        </ul>
+    </nav>
+    <header id="inicio" class="fade-in">
+        <img src="https://imgur.com/FhqF3r8.png" alt="Logo Momento Floral" aria-label="Logo Momento Floral">
         <h1>Momento Floral</h1>
-        <p>Haz de cada ocasión un momento inolvidable con nuestros hermosos ramos de flores.</p>
+        <p>¡Celebra el amor y la belleza con Momentos Florales! 🌸✨ Diseñamos arreglos personalizados con las flores más frescas y hermosas de la región. Desde ramos impresionantes hasta detalles únicos, cada flor transmite tus sentimientos más profundos. ¡Dile "te quiero" de la manera más especial y llena de color! 🌷💐 #FloresConAmor #MomentosFlorales</p>
     </header>
 
-    <section class="hero">
+    <section class="hero fade-in" aria-label="Flores para cualquier ocasión">
         <h2>Flores para cualquier ocasión</h2>
         <p>Ramos frescos, arreglos personalizados, y más. ¡Dile "te quiero" con flores!</p>
-        <a href="#catalog" class="cta-btn">Explora Nuestros Ramos</a>
+        <a href="#catalog" class="cta-btn btn-anim">Explora Nuestros Ramos</a>
     </section>
 
-    <section class="catalog" id="catalog">
-        <div class="catalog-item">
+    <section class="catalog fade-in" id="catalog" aria-label="Catálogo de Ramos">
+        <div class="catalog-item scale-in">
             <img src="https://imgur.com/Ucmv5sB.jpg" alt="Ramo de flores 1">
-            <p>Un ramo lleno de elegancia para tus momentos más especiales, perfecto para regalar o decorar.</p>
+            <p>Un ramo lleno de elegancia para tus momentos más especiales, solamente  perfecto.</p>
         </div>
-        <div class="catalog-item">
+        <div class="catalog-item scale-in">
             <img src="https://imgur.com/ZMgLFLw.jpg" alt="Ramo de flores 2">
             <p>Vibrante y lleno de vida, este ramo es el detalle perfecto para alegrar el día de alguien especial.</p>
         </div>
-        <div class="catalog-item">
+        <div class="catalog-item scale-in">
             <img src="https://imgur.com/dmOsuhB.jpg" alt="Ramo de flores 3">
             <p>Un ramo clásico y elegante que nunca pasa de moda, ideal para expresar tus sentimientos.</p>
         </div>
-        <div class="catalog-item">
+        <div class="catalog-item scale-in">
             <img src="https://imgur.com/GptRigZ.jpg" alt="Ramo de flores 4">
             <p>Una mezcla perfecta de colores y texturas que hará brillar cualquier espacio.</p>
         </div>
-        <div class="catalog-item">
+        <div class="catalog-item scale-in">
             <img src="https://imgur.com/3sGFpEg.jpg" alt="Ramo de flores 5">
             <p>Con un toque campestre y natural, este ramo será el detalle perfecto para cualquier ocasión.</p>
         </div>
-        <div class="catalog-item">
+        <div class="catalog-item scale-in">
             <img src="https://imgur.com/gMxw7z1.jpg" alt="Ramo de flores 6">
             <p>Un ramo romántico y delicado que hará que tu ser querido se sienta especial en su gran día.</p>
         </div>
-        <div class="catalog-item">
+        <div class="catalog-item scale-in">
             <img src="https://imgur.com/Fw6gFzE.jpg" alt="Ramo de flores 7">
             <p>Elegancia y sencillez se combinan en este ramo de tulipanes, ideal para momentos delicados.</p>
         </div>
-        <div class="catalog-item">
+        <div class="catalog-item scale-in">
             <img src="https://imgur.com/iyHr8oD.jpg" alt="Ramo de flores 8">
             <p>Una explosión de colores que llenará de alegría a cualquiera que lo reciba.</p>
         </div>
-        <div class="catalog-item">
+        <div class="catalog-item scale-in">
             <img src="https://imgur.com/lB5fXls.jpg" alt="Ramo de flores 9">
-            <p>Orquídeas, símbolo de sofisticación y belleza, perfectas para una ocasión especial.</p>
+            <p>Rosas, símbolo de sofisticación y belleza, perfectas para una ocasión especial.</p>
         </div>
-        <div class="catalog-item">
+        <div class="catalog-item scale-in">
             <img src="https://imgur.com/Jv4BDpw.jpg" alt="Ramo de flores 10">
             <p>Un ramo fragante y elegante de lirios, ideal para expresar tus sentimientos de forma única.</p>
         </div>
-        <div class="catalog-item">
+        <div class="catalog-item scale-in">
             <img src="https://imgur.com/5lHi9Q6.jpg" alt="Ramo de flores 11">
             <p>Flores frescas y fragantes para regalar un toque especial a tu hogar o un ser querido.</p>
         </div>
@@ -159,15 +295,18 @@
         </div>
     </section>
 
-    <section class="contact-section">
+    <section class="contact-section fade-in" id="contacto" aria-label="Contacto y pedidos">
         <h2>¡Contáctanos y haz tu pedido ahora!</h2>
         <p>Estamos listos para hacer realidad tu ramo perfecto. Ya sea para un cumpleaños, boda, o simplemente para decir "te quiero", tenemos lo que necesitas.</p>
-        <a href="https://wa.me/50230404940" class="whatsapp-btn">Contáctanos por WhatsApp</a>
+        <a href="https://wa.me/50230404940" class="whatsapp-btn btn-anim" target="_blank" rel="noopener">Contáctanos por WhatsApp</a>
     </section>
 
     <footer>
         <p>Síguenos en nuestras redes sociales para ver más flores hermosas y ofertas especiales.</p>
-        <p><a href="https://www.instagram.com/momento.floral_gt/" target="_blank" style="color:white;">Instagram de Momento Floral</a></p>
+        <div class="redes">
+            <a href="https://www.instagram.com/momento.floral_gt/" target="_blank" rel="noopener">Instagram</a>
+            <a href="https://wa.me/50230404940" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
         <p>&copy; 2025 Momento Floral. Todos los derechos reservados.</p>
     </footer>
 </body>
