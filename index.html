@@ -35,19 +35,8 @@
                 transform: scale(1);
             }
         }
-        .btn-anim {
-            animation: pulseBtn 1.2s infinite alternate;
-        }
-        @keyframes pulseBtn {
-            from {
-                box-shadow: 0 2px 8px rgba(138,61,136,0.20);
-            }
-            to {
-                box-shadow: 0 0 24px 8px #f2d1f0;
-            }
-        }
         nav {
-            background: #8a3d88;
+            background: #e8b7c8;
             color: #fff;
             display: flex;
             justify-content: center;
@@ -69,13 +58,13 @@
             transition: color 0.2s;
         }
         nav a:hover {
-            color: #f2d1f0;
+            color: #d48ca6;
         }
         header {
-            background-color: #f2d1f0;
+            background-color: #f7e3ea;
             padding: 20px;
             text-align: center;
-            color: #8a3d88;
+            color: #d48ca6;
         }
         header img {
             max-width: 150px;
@@ -96,16 +85,27 @@
         .hero h2 {
             font-size: 2.5em;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 8px #8a3d88;
+            text-shadow: 2px 2px 8px #d48ca6;
         }
         .cta-btn {
-            background-color: #8a3d88;
+            background-color: #e8b7c8;
             color: white;
             padding: 15px 25px;
             text-decoration: none;
             border-radius: 5px;
             font-size: 1.2em;
-            box-shadow: 0 2px 8px rgba(138,61,136,0.2);
+            box-shadow: 0 2px 8px rgba(212,140,166,0.2);
+        }
+        .btn-anim {
+            animation: pulseBtn 1.2s infinite alternate;
+        }
+        @keyframes pulseBtn {
+            from {
+                box-shadow: 0 2px 8px rgba(232,183,200,0.20);
+            }
+            to {
+                box-shadow: 0 0 24px 8px #f7e3ea;
+            }
         }
         .catalog {
             display: flex;
@@ -136,20 +136,20 @@
         .catalog-item p {
             font-size: 1.1em;
             margin-top: 10px;
-            color: #8a3d88;
+            color: #d48ca6;
         }
         .contact-section {
-            background-color: #f2d1f0;
+            background-color: #f7e3ea;
             padding: 40px 20px;
             text-align: center;
             border-radius: 30px;
             margin: 40px 10px 0 10px;
-            box-shadow: 0 4px 16px rgba(138,61,136,0.10);
+            box-shadow: 0 4px 16px rgba(212,140,166,0.10);
         }
         .contact-section h2 {
             font-size: 2em;
             margin-bottom: 20px;
-            color: #8a3d88;
+            color: #d48ca6;
         }
         .whatsapp-btn {
             background-color: #25D366;
@@ -196,7 +196,7 @@
             background-color: #a85ca8;
         }
         footer {
-            background-color: #8a3d88;
+            background-color: #e8b7c8;
             color: white;
             text-align: center;
             padding: 20px;
@@ -274,7 +274,7 @@
             <p>Elegancia y sencillez se combinan en este ramo de tulipanes, ideal para momentos delicados.</p>
         </div>
         <div class="catalog-item scale-in">
-            <img src="https://imgur.com/iyHr8oD.jpg" alt="Ramo de flores 8">
+            <img src="https://imgur.com/5TKxCrU.jpg" alt="Ramo de flores 8">
             <p>Una explosión de colores que llenará de alegría a cualquiera que lo reciba.</p>
         </div>
         <div class="catalog-item scale-in">
@@ -289,16 +289,38 @@
             <img src="https://imgur.com/5lHi9Q6.jpg" alt="Ramo de flores 11">
             <p>Flores frescas y fragantes para regalar un toque especial a tu hogar o un ser querido.</p>
         </div>
-        <div class="catalog-item">
-            <img src="https://imgur.com/6Lsi3q1.jpg" alt="Ramo de flores 12">
-            <p>Un ramo campestre que te conecta con la naturaleza, perfecto para cualquier tipo de evento.</p>
+        <div class="catalog-item scale-in">
+            <img src="https://imgur.com/pCxA8KG.jpg" alt="Ramo de flores 13">
+            <p>Ramo tropical con flores exóticas y follaje vibrante, ideal para sorprender.</p>
+        </div>
+        <div class="catalog-item scale-in">
+            <img src="https://imgur.com/r9mcLjd.jpg" alt="Ramo de flores 14">
+            <p>Ramo perfecto para alegrar cualquier espacio.</p>
         </div>
     </section>
 
     <section class="contact-section fade-in" id="contacto" aria-label="Contacto y pedidos">
         <h2>¡Contáctanos y haz tu pedido ahora!</h2>
         <p>Estamos listos para hacer realidad tu ramo perfecto. Ya sea para un cumpleaños, boda, o simplemente para decir "te quiero", tenemos lo que necesitas.</p>
-        <a href="https://wa.me/50230404940" class="whatsapp-btn btn-anim" target="_blank" rel="noopener">Contáctanos por WhatsApp</a>
+        <form id="whatsappForm" style="max-width:400px;margin:20px auto;text-align:left;">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required style="width:100%;margin-bottom:10px;">
+            <label for="ramo">Tipo de ramo que deseas:</label>
+            <input type="text" id="ramo" name="ramo" required style="width:100%;margin-bottom:10px;">
+            <label for="mensaje">Mensaje adicional:</label>
+            <textarea id="mensaje" name="mensaje" rows="3" style="width:100%;margin-bottom:10px;"></textarea>
+            <button type="submit" class="whatsapp-btn btn-anim" style="width:100%;">Enviar pedido por WhatsApp</button>
+        </form>
+        <script>
+        document.getElementById('whatsappForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var nombre = document.getElementById('nombre').value;
+            var ramo = document.getElementById('ramo').value;
+            var mensaje = document.getElementById('mensaje').value;
+            var texto = encodeURIComponent('Hola, soy ' + nombre + '. Quiero pedir el siguiente ramo: ' + ramo + (mensaje ? '. Mensaje: ' + mensaje : ''));
+            window.open('https://wa.me/50230404940?text=' + texto, '_blank');
+        });
+        </script>
     </section>
 
     <section class="map-section" style="width:100%;text-align:center;margin:40px 0;">
@@ -312,6 +334,7 @@
         <div class="redes">
             <a href="https://www.instagram.com/momento.floral_gt/" target="_blank" rel="noopener">Instagram</a>
             <a href="https://wa.me/50230404940" target="_blank" rel="noopener">WhatsApp</a>
+            <a href="https://www.facebook.com/people/Momento-Floral/61554122540106" target="_blank" rel="noopener">Facebook</a>
         </div>
         <p>&copy; 2025 Momento Floral. Todos los derechos reservados.</p>
     </footer>
